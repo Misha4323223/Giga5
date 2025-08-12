@@ -1,0 +1,17 @@
+2025-08-08 16:38:13 +0000] [6661] [INFO] Booting worker with pid: 6661
+INFO:root:Начинаем загрузку модели ruGPT3Large...
+INFO:root:Загружаем токенизатор...
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): huggingface.co:443
+DEBUG:urllib3.connectionpool:https://huggingface.co:443 "HEAD /sberbank-ai/rugpt3large_based_on_gpt2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+DEBUG:urllib3.connectionpool:https://huggingface.co:443 "HEAD /ai-forever/rugpt3large_based_on_gpt2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+DEBUG:urllib3.connectionpool:https://huggingface.co:443 "HEAD /api/resolve-cache/models/ai-forever/rugpt3large_based_on_gpt2/29c569320be2e08f29757898ec3866413725acd7/tokenizer_config.json HTTP/1.1" 200 0
+DEBUG:urllib3.connectionpool:https://huggingface.co:443 "GET /api/models/sberbank-ai/rugpt3large_based_on_gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 148
+DEBUG:urllib3.connectionpool:https://huggingface.co:443 "GET /api/models/ai-forever/rugpt3large_based_on_gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+INFO:root:Загружаем модель...
+DEBUG:urllib3.connectionpool:https://huggingface.co:443 "HEAD /sberbank-ai/rugpt3large_based_on_gpt2/resolve/main/config.json HTTP/1.1" 307 0
+DEBUG:urllib3.connectionpool:https://huggingface.co:443 "HEAD /ai-forever/rugpt3large_based_on_gpt2/resolve/main/config.json HTTP/1.1" 307 0
+DEBUG:urllib3.connectionpool:https://huggingface.co:443 "HEAD /api/resolve-cache/models/ai-forever/rugpt3large_based_on_gpt2/29c569320be2e08f29757898ec3866413725acd7/config.json HTTP/1.1" 200 0
+DEBUG:urllib3.connectionpool:https://huggingface.co:443 "HEAD /sberbank-ai/rugpt3large_based_on_gpt2/resolve/main/config.json HTTP/1.1" 307 0
+DEBUG:urllib3.connectionpool:https://huggingface.co:443 "HEAD /ai-forever/rugpt3large_based_on_gpt2/resolve/main/config.json HTTP/1.1" 307 0
+DEBUG:urllib3.connectionpool:https://huggingface.co:443 "HEAD /api/resolve-cache/models/ai-forever/rugpt3large_based_on_gpt2/29c569320be2e08f29757898ec3866413725acd7/config.json HTTP/1.1" 200 0
+DEBUG:urllib3.connectionpool:https://huggingface.co:443 "HEAD /sberbank-ai/rugpt3large_based_on_gpt2/resolve/main/model.safetensors HTTP/1.1" 307 0
