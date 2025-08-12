@@ -7,21 +7,26 @@ from typing import Optional, Dict, Any
 
 class SearchService:
     def __init__(self):
-        self.enabled = True  # Всегда включен - используем только DuckDuckGo
-        logging.info("Поиск в интернете включен: DuckDuckGo")
+        self.enabled = True  # Всегда включен - используем SearXNG + DuckDuckGo
+        logging.info("Поиск в интернете включен: SearXNG + DuckDuckGo")
     
     def search(self, query: str) -> Optional[str]:
-        """Поиск информации в интернете через DuckDuckGo"""
+        """Поиск информации в интернете через SearXNG и DuckDuckGo"""
         if not self.enabled:
             return None
         
-        # Единственный поиск через DuckDuckGo
+        # Сначала пробуем SearXNG (лучше для свежих новостей)
+        result = self._search_searxng(query)
+        if result:
+            return result
+        
+        # Резервный поиск через DuckDuckGo
         result = self._search_duckduckgo(query)
         if result:
             return result
         
         # Если ничего не найдено
-        return f"🔍 **Поиск информации в интернете**\n\nК сожалению, в данный момент не удалось получить актуальную информацию по запросу '{query}' из DuckDuckGo. Это может быть связано с временными ограничениями доступа к сервису."
+        return f"🔍 **Поиск информации в интернете**\n\nК сожалению, в данный момент не удалось получить актуальную информацию по запросу '{query}'. Проверены источники: SearXNG и DuckDuckGo."
     
     def _search_duckduckgo(self, query: str) -> Optional[str]:
         """Поиск через DuckDuckGo используя готовую библиотеку"""
@@ -81,6 +86,88 @@ class SearchService:
             logging.error(f"Ошибка при поиске DuckDuckGo: {str(e)}")
             return None
     
+    def _search_searxng(self, query: str) -> Optional[str]:
+        """Поиск через SearXNG (метапоисковик)"""
+        try:
+            # Переводим запрос для лучших результатов
+            translated_query = self._translate_query_to_english(query)
+            logging.info(f"SearXNG поиск: {translated_query}")
+            
+            # Список надежных SearXNG инстансов
+            searxng_instances = [
+                "https://searx.be",
+                "https://search.bus-hit.me", 
+                "https://searx.tiekoetter.com"
+            ]
+            
+            for instance in searxng_instances:
+                try:
+                    url = f"{instance}/search"
+                    params = {
+                        "q": translated_query,
+                        "format": "json",
+                        "categories": "general",
+                        "safesearch": 0,
+                        "language": "auto"
+                    }
+                    
+                    headers = {
+                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                    }
+                    
+                    response = requests.get(url, params=params, headers=headers, timeout=10)
+                    
+                    if response.status_code == 200:
+                        data = response.json()
+                        
+                        if data.get('results'):
+                            return self._format_searxng_response(data)
+                    
+                except Exception as e:
+                    logging.debug(f"SearXNG инстанс {instance} недоступен: {str(e)}")
+                    continue
+                    
+            return None
+                    
+        except Exception as e:
+            logging.error(f"Ошибка при поиске SearXNG: {str(e)}")
+            return None
+    
+    def _format_searxng_response(self, data: dict) -> Optional[str]:
+        """Форматирование ответа от SearXNG"""
+        try:
+            results = data.get('results', [])
+            if not results:
+                return None
+            
+            result_parts = []
+            
+            # Берем первые 3 результата для краткости
+            for i, result in enumerate(results[:3], 1):
+                title = result.get('title', '').strip()
+                content = result.get('content', '').strip()
+                url = result.get('url', '').strip()
+                
+                if title:
+                    formatted_result = f"**{i}. {title}**"
+                    if content:
+                        # Обрезаем длинный контент
+                        content = content[:200] + "..." if len(content) > 200 else content
+                        formatted_result += f"\n{content}"
+                    if url:
+                        formatted_result += f"\n🔗 {url}"
+                    
+                    result_parts.append(formatted_result)
+            
+            if result_parts:
+                formatted_results = "\n\n".join(result_parts)
+                return f"🔍 **Результаты поиска SearXNG:**\n\n{formatted_results}"
+                
+            return None
+            
+        except Exception as e:
+            logging.error(f"Ошибка форматирования SearXNG: {str(e)}")
+            return None
 
     
 
@@ -166,6 +253,17 @@ class SearchService:
             "новая версия": "new version",
             "обновление": "update",
             "выпуск": "release",
+            "последняя информация": "latest information",
+            "информация про": "information about",
+            "расскажи про": "tell about",
+            "про чат жпт": "about ChatGPT",
+            "чат жпт": "ChatGPT",
+            "жпт": "GPT",
+            "жпт-5": "GPT-5",
+            "жпт5": "GPT-5",
+            "последние новости про": "latest news about",
+            "релиз": "release",
+            "анонс": "announcement",
             
             # Финансы
             "курс": "exchange rate",
