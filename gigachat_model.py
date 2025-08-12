@@ -212,12 +212,27 @@ class GigaChatModel:
    
    Формат: "ИЩУИНФОРМАЦИЮ: [конкретный поисковый запрос на английском]"
    
-   ВАЖНЫЕ ПРИМЕРЫ:
+   КРИТИЧЕСКИ ВАЖНО: ВСЕ русские термины переводи на английский!
+   
+   Примеры перевода терминов:
+   - чат жпт/жпт/gpt → ChatGPT/GPT
+   - искусственный интеллект → artificial intelligence
+   - нейронные сети → neural networks
+   - машинное обучение → machine learning
+   - блокчейн → blockchain
+   - криптовалюта/биткойн → cryptocurrency/Bitcoin
+   - квантовые компьютеры → quantum computers
+   - курс доллара → USD exchange rate
+   - погода в Москве → weather Moscow
+   - новости Tesla → Tesla news
+   - цена нефти → oil price
+   
+   ПРИМЕРЫ ЗАПРОСОВ:
    - "что такое GPT-5" → ИЩУИНФОРМАЦИЮ: GPT-5 latest information
-   - "расскажи про GPT-5" → ИЩУИНФОРМАЦИЮ: GPT-5 features release date
-   - "последняя информация про GPT-5" → ИЩУИНФОРМАЦИЮ: GPT-5 current status
-   - "курс доллара" → ИЩУИНФОРМАЦИЮ: USD exchange rate today
-   - "погода в Москве" → ИЩУИНФОРМАЦИЮ: weather Moscow today
+   - "искусственный интеллект новости" → ИЩУИНФОРМАЦИЮ: artificial intelligence news today  
+   - "курс биткойна сегодня" → ИЩУИНФОРМАЦИЮ: Bitcoin price today
+   - "машинное обучение обучение" → ИЩУИНФОРМАЦИЮ: machine learning tutorial
+   - "блокчейн технологии" → ИЩУИНФОРМАЦИЮ: blockchain technology overview
 
 2. ГЕНЕРАЦИЯ ИЗОБРАЖЕНИЙ:
    - Запросы на совет/варианты → отвечай текстом с предложениями

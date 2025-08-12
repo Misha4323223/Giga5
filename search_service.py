@@ -31,9 +31,10 @@ class SearchService:
     def _search_duckduckgo(self, query: str) -> Optional[str]:
         """Поиск через DuckDuckGo используя готовую библиотеку"""
         try:
-            # Переводим русские поисковые фразы в английские для лучших результатов
-            translated_query = self._translate_query_to_english(query)
-            logging.info(f"Переведенный запрос: {translated_query}")
+            # GigaChat теперь сам формулирует запросы на английском
+            # Используем запрос как есть - он уже должен быть на английском
+            translated_query = query
+            logging.info(f"Поисковый запрос от GigaChat: {translated_query}")
             
             from duckduckgo_search import DDGS
             
@@ -89,9 +90,10 @@ class SearchService:
     def _search_searxng(self, query: str) -> Optional[str]:
         """Поиск через SearXNG (метапоисковик)"""
         try:
-            # Переводим запрос для лучших результатов
-            translated_query = self._translate_query_to_english(query)
-            logging.info(f"SearXNG поиск: {translated_query}")
+            # GigaChat теперь сам формулирует запросы на английском
+            # Используем запрос как есть - он уже должен быть на английском
+            translated_query = query
+            logging.info(f"SearXNG поиск от GigaChat: {translated_query}")
             
             # Список надежных SearXNG инстансов
             searxng_instances = [
